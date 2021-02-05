@@ -130,7 +130,7 @@ class SalModel(nn.Module):
         self.opt = opt
 
         if not os.path.exists(self.save_dir + '/runs'):
-            os.mkdir(self.save_dir + '/runs')
+            os.makedirs(self.save_dir + '/runs')
         os.system('rm -rf %s/runs/*' % self.save_dir)
         self.writer = SummaryWriter('%s/runs/' % self.save_dir + datetime.now().strftime('%Y%m%d_%H:%M:%S'))
 
