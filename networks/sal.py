@@ -3,14 +3,14 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from torch.nn.utils.rnn import pack_padded_sequence
 from PIL import Image
 import torchvision
 import pdb
 import os
 
-import sys
-thismodule = sys.modules[__name__]
+from .densenet import *
+
+
 
 
 def proc_densenet(model):
@@ -91,7 +91,7 @@ class DeepLab(nn.Module):
                                     for dl in [6, 12, 18, 24]])
         self.upscale = nn.ConvTranspose2d(c_output, c_output, 16, 8, 4)
         self.apply(weight_init)
-        self.feature = getattr(thismodule, base)(pretrained=pretrained)
+        self.feature = densenet169(pretrained=True)
         self.feature = procs[base](self.feature)
         self.apply(fraze_bn)
 
@@ -108,7 +108,7 @@ class SalModel(nn.Module):
 
         self.name = 'SalSal_' + opt.base
         self.ws = 0.05
-        net = networks.DeepLab(pretrained=True, c_output=1, base=opt.base)
+        net = DeepLab(pretrained=True, c_output=1, base=opt.base)
         net = torch.nn.parallel.DataParallel(net)
         self.net = net.cuda()
         self.criterion = nn.BCEWithLogitsLoss()

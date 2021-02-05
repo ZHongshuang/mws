@@ -134,8 +134,6 @@ if __name__ == "__main__":
     if not os.path.exists(opt.results_dir):
         os.makedirs(opt.results_dir)
 
-
-
     val_loader = torch.utils.data.DataLoader(
         Folder(opt.val_img_dir, opt.val_gt_dir,
                crop=None, flip=False, rotate=None, size=opt.imageSize,
