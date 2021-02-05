@@ -158,7 +158,6 @@ class SalModel(nn.Module):
         for k, v in self.loss.items():
             self.writer.add_scalar(k, v, num_iter)
             loss += v
-        pdb.set_trace()
         self.writer.add_scalar('total loss', loss, num_iter)
         #num_show = min(self.input.size(0), num_show)
 
