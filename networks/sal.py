@@ -158,8 +158,9 @@ class SalModel(nn.Module):
         for k, v in self.loss.items():
             self.writer.add_scalar(k, v, num_iter)
             loss += v
+        pdb.set_trace()
         self.writer.add_scalar('total loss', loss, num_iter)
-        num_show = min(self.input.size(0), num_show)
+        #num_show = min(self.input.size(0), num_show)
 
 
         img = self.input_sal.cpu()[:num_show]*self.v_std + self.v_mean
@@ -180,6 +181,10 @@ class SalModel(nn.Module):
 
         pred = torch.sigmoid(self.big_mask_syn[:num_show])
         self.writer.add_image('prediction_syn', torchvision.utils.make_grid(pred.expand(-1, 3, -1, -1)).detach(), num_iter)
+
+    def show_tensorboard_eval(self, num_iter):
+        for k, v in self.performance.items():
+            self.writer.add_scalar(k, v, num_iter)
 
 
 
