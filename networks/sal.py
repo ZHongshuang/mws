@@ -126,7 +126,7 @@ class SalModel(nn.Module):
         self.mask = None
         self.opt = opt
 
-        
+
 
     def save(self, label):
         self.save_network(self.net, self.name, label)
