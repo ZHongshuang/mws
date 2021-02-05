@@ -114,6 +114,19 @@ class SalModel(nn.Module):
         self.net = net.cuda()
         self.criterion = nn.BCEWithLogitsLoss()
         self.optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, self.net.parameters()), lr=opt.lr)
+        self.save_dir = os.path.join(opt.checkpoints_dir, opt.name)
+        self.performance = {}
+        self.loss = {}
+        self.v_mean = torch.Tensor(opt.mean)[None, ..., None, None]
+        self.v_std = torch.Tensor(opt.std)[None, ..., None, None]
+
+        self.input = None
+        self.targets = None
+        self.big_mask_logits = None
+        self.mask = None
+        self.opt = opt
+
+        
 
     def save(self, label):
         self.save_network(self.net, self.name, label)

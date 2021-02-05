@@ -98,7 +98,7 @@ if __name__ == "__main__":
     parser.add_argument('--base', type=str, default='densenet169',
                              help='chooses which backbone network to use. densenet169, vgg16, etc')
 
-    parser.add_argument('--checkpoints_dir', type=str, default='%s/mwsFiles',
+    parser.add_argument('--checkpoints_dir', type=str, default='./mwsFiles',
                              help='path to save params and tensorboard files')
 
     parser.add_argument('--start_it', type=int, default=0, help='recover from saved')
@@ -133,6 +133,11 @@ if __name__ == "__main__":
     opt = parser.parse_args()
     if not os.path.exists(opt.results_dir):
         os.makedirs(opt.results_dir)
+
+    if not os.path.exists(opt.checkpoints_dir):
+        os.makedirs(opt.checkpoints_dir)
+
+
 
     val_loader = torch.utils.data.DataLoader(
         Folder(opt.val_img_dir, opt.val_gt_dir,
