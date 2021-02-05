@@ -11,13 +11,13 @@ import pdb
 import random
 
 
-def test(model, val_loader):
+def test(model, val_loader, opt):
     print("============================= TEST ============================")
     model.switch_to_eval()
     for i, (img, name, WW, HH) in tqdm(enumerate(val_loader), desc='testing'):
         model.test(img, name, WW, HH)
     model.switch_to_train()
-    maxfm, mae, _, _ = fm_and_mae(model.opt.results_dir, model.opt.val_gt_dir)
+    maxfm, mae, _, _ = fm_and_mae(opt.results_dir, opt.val_gt_dir)
     model.performance = {'maxfm': maxfm, 'mae': mae}
     return model.performance
 
@@ -50,7 +50,7 @@ class CombinedIter(object):
         return output
 
 
-def train(model, train_loader, syn_loader, val_loader):
+def train(model, train_loader, syn_loader, val_loader, opt):
     print("============================= TRAIN ============================")
     model.switch_to_train()
     # model.load('best')
@@ -58,18 +58,18 @@ def train(model, train_loader, syn_loader, val_loader):
     train_iter = CombinedIter(train_loader, syn_loader)
     log = {'best': 0, 'best_it': 0}
 
-    for i in tqdm(range(model.opt.train_iters), desc='train'):
+    for i in tqdm(range(opt.train_iters), desc='train'):
         data = train_iter.next()
 
         model.set_input(data)
         model.optimize_parameters(i)
 
-        if i % model.opt.display_freq == 0:
+        if i % opt.display_freq == 0:
             model.show_tensorboard(i)
 
-        if i != 0 and i % model.opt.save_latest_freq == 0:
+        if i != 0 and i % opt.save_latest_freq == 0:
             model.save(i)
-            performance = test(model, val_loader)
+            performance = test(model, val_loader, opt)
             model.show_tensorboard_eval(i)
             log[i] = performance
             if performance['maxfm'] > log['best']:
@@ -154,7 +154,7 @@ if __name__ == "__main__":
 
     model = SalModel(opt)
 
-    train(model, train_loader, syn_loader, val_loader)
+    train(model, train_loader, syn_loader, val_loader, opt)
     print("We are done")
 
 
