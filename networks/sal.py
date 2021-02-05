@@ -106,6 +106,7 @@ class DeepLab(nn.Module):
 
 class SalModel(nn.Module):
     def __init__(self, opt):
+        super(SalModel, self).__init__()
         self.name = 'SalSal_' + opt.base
         self.ws = 0.05
         net = DeepLab(pretrained=True, c_output=1, base=opt.base)
