@@ -13,9 +13,6 @@ import torchvision
 from datetime import datetime
 import pdb
 
-
-
-
 def proc_densenet(model):
     # dilation
     def remove_sequential(all_layers, network):
@@ -159,8 +156,6 @@ class SalModel(nn.Module):
             self.writer.add_scalar(k, v, num_iter)
             loss += v
         self.writer.add_scalar('total loss', loss, num_iter)
-        #num_show = min(self.input.size(0), num_show)
-
 
         img = self.input_sal.cpu()[:num_show]*self.v_std + self.v_mean
         self.writer.add_image('img_sal', torchvision.utils.make_grid(img), num_iter)
@@ -170,7 +165,6 @@ class SalModel(nn.Module):
 
         pred = torch.sigmoid(self.big_mask_sal[:num_show])
         self.writer.add_image('prediction_sal', torchvision.utils.make_grid(pred.expand(-1, 3, -1, -1)).detach(), num_iter)
-
 
         img = self.input_syn.cpu()[:num_show]*self.v_std + self.v_mean
         self.writer.add_image('img_syn', torchvision.utils.make_grid(img), num_iter)

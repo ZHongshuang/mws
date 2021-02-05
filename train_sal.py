@@ -112,21 +112,21 @@ if __name__ == "__main__":
     parser.add_argument('--lr', type=float, default=1e-4, help='initial learning rate for adam')
 
     parser.add_argument('--train_img_dir', type=str,
-                             default='/home/data3/zhang.hongshuang/Data/saliency/DUTS-TR/images',
+                             default='/home/Data/saliency/DUTS-TR/images',
                              help='path to saliency training images ')
     parser.add_argument('--train_gt_dir', type=str,
-                             default='/home/data3/zhang.hongshuang/Data/saliency/DUTS-TR/masks')# /DUT-train_two_mr2_crf_bin
+                             default='/home/Data/saliency/DUTS-TR/DUT-train_two_mr2_crf_bin')
     parser.add_argument('--val_img_dir', type=str,
-                             default='/home/data3/zhang.hongshuang/Data/saliency/ECSSD/images',
+                             default='/home/Data/saliency/ECSSD/images',
                              help='path to validation images')
     parser.add_argument('--val_gt_dir', type=str,
-                             default='/home/data3/zhang.hongshuang/Data/saliency//ECSSD/masks',
+                             default='/home/Data/saliency/ECSSD/masks',
                              help='path to validation ground-truth')
     parser.add_argument('--syn_img_dir', type=str,
-                             default='/home/data3/zhang.hongshuang/Data/saliency/DUTS-TR/images',
+                             default='/home/Data/saliency/syn/images',
                              help='path to validation images')
     parser.add_argument('--syn_gt_dir', type=str,
-                             default='/home/data3/zhang.hongshuang/Data/saliency/DUTS-TR/masks',
+                             default='/home/Data/saliency/syn/masks',
                              help='path to validation ground-truth')
 
     opt = parser.parse_args()
@@ -135,8 +135,6 @@ if __name__ == "__main__":
 
     if not os.path.exists(opt.checkpoints_dir):
         os.makedirs(opt.checkpoints_dir)
-
-
 
     val_loader = torch.utils.data.DataLoader(
         Folder(opt.val_img_dir, opt.val_gt_dir,

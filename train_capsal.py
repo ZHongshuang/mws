@@ -99,11 +99,11 @@ if __name__ == "__main__":
     visualize.id2w = id2w
 
 
-    #cap_val_loader = torch.utils.data.DataLoader(
-    #    CocoCaption(args.pathimg_val, args.pathann_val, vocab,
-    #                crop=None, flip=True, rotate=None, size=256,
-    #                mean=None, std=None, training=True),
-    #    batch_size=args.batchsize, shuffle=True, num_workers=args.numworkers, pin_memory=True, collate_fn=caption_collate_fn)
+    cap_val_loader = torch.utils.data.DataLoader(
+       CocoCaption(args.pathimg_val, args.pathann_val, vocab,
+                   crop=None, flip=True, rotate=None, size=256,
+                   mean=None, std=None, training=True),
+       batch_size=args.batchsize, shuffle=True, num_workers=args.numworkers, pin_memory=True, collate_fn=caption_collate_fn)
 
     net = SalCap(vocab_size=len(cap_train_loader.dataset.vocab))
     net.cuda()
