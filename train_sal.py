@@ -93,7 +93,7 @@ if __name__ == "__main__":
     parser.add_argument('--name', type=str,
                              help='name of the experiment. It decides where to store samples and models')
     parser.add_argument('--model', type=str, help='which model to use')
-    parser.add_argument('--results_dir', type=str, default='',
+    parser.add_argument('--results_dir', type=str, default='./results',
                              help='path to save validation results.')
     parser.add_argument('--base', type=str, default='densenet169',
                              help='chooses which backbone network to use. densenet169, vgg16, etc')
@@ -131,6 +131,9 @@ if __name__ == "__main__":
                              help='path to validation ground-truth')
 
     opt = parser.parse_args()
+    if not os.path.exists(opt.results_dir):
+        os.makedirs(opt.results_dir)
+
 
 
     val_loader = torch.utils.data.DataLoader(

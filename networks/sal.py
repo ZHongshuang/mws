@@ -5,8 +5,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.nn.utils.rnn import pack_padded_sequence
 from PIL import Image
-from .base_model import BaseModel
-import models.networks as networks
 import torchvision
 import pdb
 import os
