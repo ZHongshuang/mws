@@ -60,12 +60,13 @@ def train(model, train_loader, syn_loader, val_loader, opt):
 
     for i in tqdm(range(opt.train_iters), desc='train'):
         data = train_iter.next()
+        pdb.set_trace()
 
         model.set_input(data)
         model.optimize_parameters(i)
 
-        if i % opt.display_freq == 0:
-            model.show_tensorboard(i)
+        # if i % opt.display_freq == 0:
+        #     model.show_tensorboard(i)
 
         if i != 0 and i % opt.save_latest_freq == 0:
             model.save(i)
