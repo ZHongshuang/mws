@@ -87,9 +87,13 @@ dim_dict = {
 class DeepLab(nn.Module):
     def __init__(self, pretrained=True, c_output=21, base='densenet169'):
         dims = dim_dict[base][-1]
-        self.multi_preds = nn.ModuleList(
-            [nn.Conv2d(dims, c_output, kernel_size=3, dilation=dl, padding=dl) for dl in [6, 12, 18, 24]]
-        )
+        self.multi_preds = nn.ModuleList([
+            #nn.Conv2d(dims, c_output, kernel_size=3, dilation=dl, padding=dl) for dl in [6, 12, 18, 24]
+            nn.Conv2d(dims, c_output, kernel_size=3, dilation=6, padding=6),
+            nn.Conv2d(dims, c_output, kernel_size=3, dilation=12, padding=12),
+            nn.Conv2d(dims, c_output, kernel_size=3, dilation=18, padding=18),
+            nn.Conv2d(dims, c_output, kernel_size=3, dilation=24, padding=24)
+        ])
         self.upscale = nn.ConvTranspose2d(c_output, c_output, 16, 8, 4)
         self.apply(weight_init)
         self.feature = densenet169(pretrained=True)
