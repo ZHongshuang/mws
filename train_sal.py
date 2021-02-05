@@ -121,7 +121,7 @@ if __name__ == "__main__":
                              default='/home/data3/zhang.hongshuang/Data/saliency/ECSSD/images',
                              help='path to validation images')
     parser.add_argument('--val_gt_dir', type=str,
-                             default='%s/data/datasets/saliency_Dataset/ECSSD/masks',
+                             default='/home/data3/zhang.hongshuang/Data/saliency//ECSSD/masks',
                              help='path to validation ground-truth')
     parser.add_argument('--syn_img_dir', type=str,
                              default='/home/data3/zhang.hongshuang/Data/saliency/DUTS-TR/images',
