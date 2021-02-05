@@ -4,11 +4,14 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from PIL import Image
-import torchvision
-import pdb
-import os
+
 
 from .densenet import *
+import os
+from tensorboardX import SummaryWriter
+import torchvision
+from datetime import datetime
+import pdb
 
 
 
@@ -125,6 +128,11 @@ class SalModel(nn.Module):
         self.big_mask_logits = None
         self.mask = None
         self.opt = opt
+
+        if not os.path.exists(self.save_dir + '/runs'):
+            os.mkdir(self.save_dir + '/runs')
+        os.system('rm -rf %s/runs/*' % self.save_dir)
+        self.writer = SummaryWriter('%s/runs/' % self.save_dir + datetime.now().strftime('%Y%m%d_%H:%M:%S'))
 
 
 
