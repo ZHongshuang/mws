@@ -39,10 +39,10 @@ if __name__ == "__main__":
     parser.add_argument('--is_train', type=bool, default=False, help='train, val, test, etc')
     parser.add_argument('--lr', type=float, default=1e-4, help='initial learning rate for adam')
     parser.add_argument('--val_img_dir', type=str,
-                             default='/home/data3/zhang.hongshuang/Data/saliency/%s/images' %test_dataset,
+                             default='/home/Data/saliency/%s/images' %test_dataset,
                              help='path to validation images')
     parser.add_argument('--val_gt_dir', type=str,
-                             default='/home/data3/zhang.hongshuang/Data/saliency/%s/masks'%test_dataset,
+                             default='/home/Data/saliency/%s/masks'%test_dataset,
                              help='path to validation ground-truth')
 
     parser.add_argument('--batchSize', type=int, default=24, help='input batch size')
