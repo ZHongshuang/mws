@@ -115,6 +115,7 @@ class SalModel(nn.Module):
         self.criterion = nn.BCEWithLogitsLoss()
         self.optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, self.net.parameters()), lr=opt.lr)
         self.save_dir = os.path.join(opt.checkpoints_dir, opt.name)
+        self.checkpoints_dir = os.path.join(opt.checkpoints_dir, opt.name)
         self.performance = {}
         self.loss = {}
         self.v_mean = torch.Tensor(opt.mean)[None, ..., None, None]
@@ -248,7 +249,7 @@ class SalModel(nn.Module):
     # helper loading function that can be used by subclasses
     def load_network(self, network, network_label, epoch_label):
         save_filename = '_%s_net_%s.pth' % (epoch_label, network_label)
-        save_path = os.path.join(self.save_dir, save_filename)
+        save_path = os.path.join(self.checkpoints_dir, save_filename)
         device = next(network.parameters()).device
         network.load_state_dict(torch.load(save_path, map_location={'cuda:%d' % device.index: 'cpu'}))
 
